@@ -3,3 +3,28 @@
     border-radius: 10px;
     border: 3px solid black;
 }
+.title-name {
+    opacity: 0;
+    transform: translateY(50px);
+    animation: fade-in 1.5s ease-in-out forwards;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    font-family: 'Times New Roman', Times, serif;
+    font-size: 50px;
+}
+@keyframes fade-in {
+    from {
+        opacity: 0;
+        transform: translateY(50px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+.body {
+    background: url('http://www.petersfruit.com/application/files/8814/5944/1920/bigstock-Vegetables-96907133.jpg') no-repeat center center fixed;
+    background-size: cover;
+    padding-bottom: 50%;
+  }
