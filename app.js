@@ -7,6 +7,8 @@ const User = require('./schemas/user')
 require('dotenv').config()
 const session = require('express-session')
 
+app.use('/css/version-1', express.static('css'))
+
 mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8cz7y6f.mongodb.net/?retryWrites=true&w=majority`,
 {
     useNewUrlParser: true,
