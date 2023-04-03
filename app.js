@@ -4,8 +4,10 @@ const mustacheExpress = require('mustache-express')
 const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const User = require('./schemas/user')
+const Poll = require('./schemas/poll')
 require('dotenv').config()
 const session = require('express-session')
+
 
 app.use('/css/version-1', express.static('css'))
 
@@ -41,8 +43,6 @@ app.get('/home', (req, res) => {
 app.get('/register', async(req, res) => {
     res.render('register')
 })
-
-
 app.post('/register', async(req, res) => {
     const password = req.body.password
     let salt = await bcrypt.genSalt(10)
@@ -56,7 +56,28 @@ app.post('/register', async(req, res) => {
         lastName: req.body.lastName,
     })
     await user.save()
-    res.redirect('/home')
+    res.redirect('/user-home')
+})
+app.get('/user-home', (req,res) => {
+    res.render('user-home', {user: req.session.user})
+})
+app.post('/user-home', async (req, res) => {
+
+})
+
+app.get('/poll', (req, res) => {
+    res.render('poll')
+})
+app.post('/poll', async(req, res) => {
+
+    const pollInfo = new Poll({
+    findOut: req.body.responseFO,
+    activityInterest: req.body.responseAI,
+    kalosInterest: req.body.responseKI,
+    users: req.session.user
+})
+    await pollInfo.save()
+    res.redirect('/user-home')
 })
 
 app.get('/login', async(req, res) => {
@@ -78,10 +99,11 @@ app.post('/login', async(req, res) => {
             // put something in the session 
             if(req.session) {
                 req.session.userId = user.id 
+                req.session.user = user.username
             }
-
+            
             // send them to the home screen 
-            res.redirect('/home')
+            res.redirect('/user-home')
         } else {
             res.render('login', { errorMessage: 'Invalid credentials.'})
         }
