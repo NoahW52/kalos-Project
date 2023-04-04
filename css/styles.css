@@ -1,9 +1,75 @@
-.nav-item {
-    background-color: rgb(1, 58, 1);
-    border-radius: 10px;
-    border: 3px solid black;
+/* Navbar container */
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  font-family: Arial;
 }
+
+/* Links inside the navbar */
+.navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* The dropdown container */
+.dropdown {
+  float: left;
+  overflow: hidden;
+}
+
+/* Dropdown button */
+.dropdown .dropbtn {
+  font-size: 16px;
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit; /* Important for vertical align on mobile phones */
+  margin: 0; /* Important for vertical align on mobile phones */
+}
+
+/* Add a red background color to navbar links on hover */
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: rgb(34, 114, 65);
+}
+
+/* Dropdown content (hidden by default) */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
+
+/* Links inside the dropdown */
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+/* Add a grey background color to dropdown links on hover */
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+/* Show the dropdown menu on hover */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
 .title-name {
+    color: aliceblue;
     opacity: 0;
     transform: translateY(50px);
     animation: fade-in 1.5s ease-in-out forwards;
@@ -14,18 +80,130 @@
     font-size: 50px;
     padding-top: 170px;
 }
+
+.textLeft {
+  /* display: flex; */
+  width: 500px;
+  margin-left: 20%;
+}
+.revolutionizing {
+  background-color: rgb(7, 51, 7);
+  padding-top: 100px;
+  padding-bottom: 100px;
+  display: flex;
+}
+
+.farm {
+  width: 35%;
+  padding-left: 10%;
+}
+
+.revHeader {
+  color: aliceblue;
+  font-size: 120%;
+}
+
+.revP {
+  color: aliceblue;
+  font-size: 100%;
+}
+
+.regeneration {
+  background: url("https://wallpapers.com/images/high/lush-leaves-and-water-droplets-57wo22amhlf3gchp.webp") no-repeat;
+  display: flex;
+  background-size: cover;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  /* filter: brightness(0.5); */
+}
+
+.regenh1 {
+  text-align: center;
+  font-size: 200%;
+  color: white;
+}
+
+.regenP {
+  color: white;
+  text-align: center;
+}
+
+.textLeft2 {
+  display: flex;
+  align-items: center;
+  width: 500px;
+  margin-left: 20%;
+}
+
+.regenImg {
+  width: 30%;
+  display: flex;
+  padding-left: 250px;
+}
+
+.logoDiv {
+  display: flex;
+  justify-content: center;
+}
+
+.logo {
+  padding-top: 50px;
+  width: 200px;
+}
+
+.help {
+  background-color: wheat;
+  padding-bottom: 20px;
+  padding-top: 20px;
+  padding-left: 15%;
+  display: flex;
+  text-align: left;
+  justify-content: left;
+}
+
+.hyHelp{
+  margin-left: 20%;
+}
+
+.helpUl {
+  padding-right: 20%;
+}
+
+.igImg {
+  width: 10%;
+}
+.regenT {
+  padding-right: 18%;
+  padding-left: 25%;
+}
+/* .partnersSpacer {
+  padding-left: 10%;
+  padding-right: 10%;
+} */
+.partnersDiv {
+  display: flex;
+}
+
+.partners {
+  text-align: center;
+  color: white;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  background: url("https://images.unsplash.com/photo-1533563906091-fdfdffc3e3c4?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80")
+}
+
 @keyframes fade-in {
-    from {
-        opacity: 0;
-        transform: translateY(50px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+      opacity: 0;
+      transform: translateY(50px);
+  }
+  to {
+      opacity: 1;
+      transform: translateY(0);
+  }
 }
 .body {
-    background: url('http://www.petersfruit.com/application/files/8814/5944/1920/bigstock-Vegetables-96907133.jpg') no-repeat center center fixed;
-    background-size: cover;
-    padding-bottom: 50%;
-  }
+  background: url('http://www.petersfruit.com/application/files/8814/5944/1920/bigstock-Vegetables-96907133.jpg') no-repeat center center fixed;
+  background-size: cover;
+  padding-bottom: 50%;
+}
