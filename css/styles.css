@@ -172,7 +172,15 @@
   width: 10%;
 }
 .regenT {
-  padding-right: 20%;
+  padding-right: 18%;
+  padding-left: 25%;
+}
+/* .partnersSpacer {
+  padding-left: 10%;
+  padding-right: 10%;
+} */
+.partnersDiv {
+  display: flex;
 }
 
 .partners {
