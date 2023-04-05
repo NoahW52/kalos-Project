@@ -1,0 +1,42 @@
+    <div class="navbar">
+      <a href="/user-home">Home</a>
+      <a href="/farmerInfo">Find a Farmer</a>
+    <div class="dropdown">
+      <button class="dropbtn">dropdown
+        <i class="fa fa-caret-down"></i>
+      </button>
+      <div class="dropdown-content">
+        <a href="/poll">1</a>
+        <a href="#">2</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="action">
+    <div class="profile" onclick="menuToggle();">
+        <img src="https://raw.githubusercontent.com/Rajacharles/User-Account/master/user.png">
+    </div>
+    <div class="menu">
+
+        <h3>
+            {{user}}
+        </h3>
+        <ul>
+            <li>
+            <a href="#"></a>
+            Profile
+            </li>
+
+            <li>
+            <a href="#"></a>
+            Sign-Out
+            </li>
+        </ul>
+    </div>
+  </div>
+  <script>
+    function menuToggle(){
+        const toggleMenu = document.querySelector('.menu');
+        toggleMenu.classList.toggle('active')
+    }
+  </script>

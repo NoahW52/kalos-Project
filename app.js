@@ -9,7 +9,9 @@ const Poll = require('./schemas/poll')
 const Farm = require('./schemas/farmer')
 require('dotenv').config()
 const session = require('express-session')
-
+const path = require('path')
+const VIEWS_PATH = path.join(__dirname, "/views")
+const PARTIALS_PATH = path.join(VIEWS_PATH, "/partials")
 
 app.use('/css/version-1', express.static('css'))
 
@@ -29,8 +31,8 @@ app.use(session({
     saveUninitialized: true
 }))
 
-app.engine('mustache', mustacheExpress())
-app.set('views', './views')
+app.engine('mustache', mustacheExpress(PARTIALS_PATH, ".mustache"))
+app.set('views', VIEWS_PATH)
 app.set('view engine', 'mustache')
 app.use(express.urlencoded())
 
@@ -63,8 +65,19 @@ app.post('/register', async(req, res) => {
 app.get('/user-home', (req,res) => {
     res.render('user-home', {user: req.session.user})
 })
-app.post('/user-home', async (req, res) => {
-
+app.get('/farmerInfo', (req,res) => {
+    res.render('farmerInfo', {user: req.session.user})
+})
+app.post('/farmerInfo', async (req,res) => {
+    
+    const newFarmer = new Farm({
+        farmer: req.body.farmerName,
+        farmerE: req.body.farmerEmail,
+        farmerP: req.body.farmerPhone,
+        description: req.body.farmerDesc
+    })
+    await newFarmer.save()
+    res.render('farmerInfo')
 })
 
 app.get('/poll', (req, res) => {
