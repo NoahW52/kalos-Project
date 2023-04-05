@@ -1,8 +1,8 @@
 const mongoose = require('mongoose')
 const farmerSchema = new mongoose.Schema({
     farmer: String,
-    farmerEmail: String,
-    farmerPhone: Number,
+    farmerE: String,
+    farmerP: Number,
     description: String
 })
 
