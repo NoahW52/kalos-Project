@@ -4,6 +4,7 @@ const mustacheExpress = require('mustache-express')
 const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const User = require('./schemas/user')
+const Land = require('./schemas/land')
 const Poll = require('./schemas/poll')
 const Farm = require('./schemas/farmer')
 require('dotenv').config()
@@ -113,6 +114,21 @@ app.post('/login', async(req, res) => {
     }
 })
 
+app.get('/findLand', (req,res) => {
+    res.render('findLand')
+})
+
+app.post('/findLand', async (req,res) => {
+    
+    const newLand = new Land({
+        Address: req.body.addy,
+        SellerName: req.body.Sname,
+        SellerContact: req.body.contact,
+        Description: req.body.description
+    })
+    await newLand.save()
+    res.render('findLand')
+})
 app.listen(process.env.PORT, () => {
     console.log(`server is running on http://localhost:${process.env.PORT}`)
 })
