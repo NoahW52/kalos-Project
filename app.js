@@ -45,12 +45,15 @@ app.get('/home', (req, res) => {
 })
 
 app.get('/register', async(req, res) => {
-    res.render('register')
+    res.render('register', {user: req.session.user})
 })
 app.post('/register', async(req, res) => {
     const password = req.body.password
     let salt = await bcrypt.genSalt(10)
     let hashedPassword = await bcrypt.hash(password, salt)
+
+    req.session.user = req.body.username
+
     const user = new User({
         username: req.body.username,
         password: hashedPassword,
@@ -136,17 +139,17 @@ app.get('/users', async (req, res) => {
 
 app.get('/farmers', async (req, res) => {
     const farmer = await Farmer.find({})
-    res.render('index', {farmerTable: farmer})
+    res.render('farmers', {farmerTable: farmer})
 })
 
 app.get('/lands', async (req, res) => {
     const land = await Land.find({})
-    res.render('index', {landTable: land})
+    res.render('lands', {landTable: land})
 })
 
 app.get('/polls', async (req, res) => {
     const poll = await Poll.find({})
-    res.render('index', {pollTable: poll})
+    res.render('polls', {pollTable: poll})
 })
 
 app.get('/findLand', (req,res) => {
