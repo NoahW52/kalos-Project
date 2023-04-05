@@ -99,13 +99,15 @@ app.get('/login', async(req, res) => {
     res.render('login')
 })
 
+app.get('/adminHome', async(req, res) => {
+    res.render('adminHome')
+})
+
 app.post('/login', async(req, res) => {
     const username = req.body.username
     const password = req.body.password
-
     const user = await User.findOne({username: username})
     const hashedPassword = user.password
-
     if(user) {
         // compare passwords 
         const result = await bcrypt.compare(password, hashedPassword)
@@ -116,15 +118,35 @@ app.post('/login', async(req, res) => {
                 req.session.userId = user.id 
                 req.session.user = user.username
             }
+            if(user.isAdmin) {res.redirect('/adminHome')}
+            else{ res.redirect('/user-home')}
             
-            // send them to the home screen 
-            res.redirect('/user-home')
         } else {
             res.render('login', { errorMessage: 'Invalid credentials.'})
         }
     } else {
         res.render('login', { errorMessage: 'no'})
     }
+})
+
+app.get('/users', async (req, res) => {
+    const user = await User.find({})
+    res.render('users', {userTable: user})
+})
+
+app.get('/farmers', async (req, res) => {
+    const farmer = await Farmer.find({})
+    res.render('index', {farmerTable: farmer})
+})
+
+app.get('/lands', async (req, res) => {
+    const land = await Land.find({})
+    res.render('index', {landTable: land})
+})
+
+app.get('/polls', async (req, res) => {
+    const poll = await Poll.find({})
+    res.render('index', {pollTable: poll})
 })
 
 app.get('/findLand', (req,res) => {
