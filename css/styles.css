@@ -82,7 +82,6 @@
 }
 
 .textLeft {
-  /* display: flex; */
   width: 500px;
   margin-left: 20%;
 }
@@ -114,7 +113,6 @@
   background-size: cover;
   padding-bottom: 20px;
   padding-top: 20px;
-  /* filter: brightness(0.5); */
 }
 
 .regenh1 {
@@ -176,10 +174,6 @@
   padding-right: 18%;
   padding-left: 25%;
 }
-/* .partnersSpacer {
-  padding-left: 10%;
-  padding-right: 10%;
-} */
 .partnersDiv {
   display: flex;
 }
@@ -207,3 +201,48 @@
   background-size: cover;
   padding-bottom: 50%;
 }
+
+.chip {
+  display: inline-block;
+  padding: 0 25px;
+  height: 50px;
+  font-size: 16px;
+  line-height: 50px;
+  border-radius: 25px;
+  background-color: #f1f1f1;
+}
+
+.chip img {
+  float: left;
+  margin: 0 10px 0 -25px;
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+}
+
+.avatar-menu {
+  position: relative;
+  display: inline-block;
+}
+
+.avatar-menu .menu {
+  display: none;
+  position: absolute;
+  z-index: 1;
+}
+
+.avatar-menu:hover .menu {
+  display: block;
+}
+
+.avatar-menu .menu a {
+  color: #000;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  background-color: #f1f1f1;
+}
+
+/* .avatar-menu .menu a:hover {
+  background-color: #ccc;
+} */

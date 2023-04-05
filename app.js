@@ -5,6 +5,7 @@ const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const User = require('./schemas/user')
 const Poll = require('./schemas/poll')
+const Farm = require('./schemas/farmer')
 require('dotenv').config()
 const session = require('express-session')
 
