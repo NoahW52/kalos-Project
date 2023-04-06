@@ -45,12 +45,15 @@ app.get('/home', (req, res) => {
 })
 
 app.get('/register', async(req, res) => {
-    res.render('register')
+    res.render('register', {user: req.session.user})
 })
 app.post('/register', async(req, res) => {
     const password = req.body.password
     let salt = await bcrypt.genSalt(10)
     let hashedPassword = await bcrypt.hash(password, salt)
+
+    req.session.user = req.body.username
+
     const user = new User({
         username: req.body.username,
         password: hashedPassword,
@@ -78,6 +81,17 @@ app.post('/farmerInfo', async (req,res) => {
     })
     await newFarmer.save()
     res.render('farmerInfo')
+})
+
+app.post('/deleteLand', async (req, res) => {
+    const id = req.body.id
+    await Land.findByIdAndDelete(id)
+    res.redirect('/lands')
+})
+app.post('/deletePoll', async (req,res) => {
+    const id = req.body.id
+    await Poll.findByIdAndDelete(id)
+    res.redirect('polls')
 })
 
 app.get('/poll', (req, res) => {
@@ -128,6 +142,18 @@ app.post('/login', async(req, res) => {
         res.render('login', { errorMessage: 'no'})
     }
 })
+app.post('/findLand', async (req,res) => {
+    
+    const newLand = new Land({
+        Address: req.body.addy,
+        SellerName: req.body.Sname,
+        SellerContact: req.body.contact,
+        emailContact: req.body.emailContact,
+        Description: req.body.description
+    })
+    await newLand.save()
+    res.render('findLand')
+})
 
 app.get('/users', async (req, res) => {
     const user = await User.find({})
@@ -173,17 +199,6 @@ app.get('/findLand', (req,res) => {
     res.render('findLand')
 })
 
-app.post('/findLand', async (req,res) => {
-    
-    const newLand = new Land({
-        Address: req.body.addy,
-        SellerName: req.body.Sname,
-        SellerContact: req.body.contact,
-        Description: req.body.description
-    })
-    await newLand.save()
-    res.render('findLand')
-})
 app.listen(process.env.PORT, () => {
     console.log(`server is running on http://localhost:${process.env.PORT}`)
 })

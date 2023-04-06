@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+<table>
+    <tr>
+        <th>Address:</th>
+        <th>Seller:</th>
+        <th>Seller Phone Number:</th>
+        <th>Description:</th>
+        <th>Action:</th>
+    </tr>
+    {{#landTable}}
+        <tr>
+            <td>{{Address}}</td>
+            <td>{{SellerName}}</td>
+            <td>{{SellerContact}}</td>
+            <td>{{emailContact}}</td>
+            <td>{{Description}}</td>
+            <td>
+                <form action="/deleteLand" method="POST">
+                    <input type="hidden" value={{_id}} name="id">
+                    <button>delete</button>
+                </form>
+            </td>
+        </tr>
+    {{/landTable}}
+</table>
+</body>
+</html>
