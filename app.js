@@ -142,6 +142,12 @@ app.post('/login', async(req, res) => {
         res.render('login', { errorMessage: 'no'})
     }
 })
+app.get('/signout', async (req,res) => {
+    const user = req.session.user
+    req.session.user = null
+    res.render('login')
+})
+
 app.post('/findLand', async (req,res) => {
     
     const newLand = new Land({
