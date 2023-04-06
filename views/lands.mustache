@@ -15,11 +15,16 @@
     <th>Users</th>
     </tr>
     {{#pollTable}}
-    <tr>
-    <td>{{findOut}}</td>
-    <td>{{activityInterest}}</td>
-    <td>{{kalosInterest}}</td>
-    <td>{{users}}</td>
+        <form action="/deleteLand" method="POST">
+            <tr>
+                <td>{{findOut}}</td>
+                <td>{{activityInterest}}</td>
+                <td>{{kalosInterest}}</td>
+                <td>{{users}}</td>
+            </tr>
+            <input type="hidden" value={{_id}} name="id">
+            <button>delete</button>
+        </form>
     {{/Table}}
 </table>
 </body>
