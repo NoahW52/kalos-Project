@@ -7,14 +7,21 @@
     <title>Document</title>
 </head>
 <body>
-    {{Username}} - {{taskPriority}}
-        {{completedDate}}
-        <form method="POST" action="/updateEditor">
-        <input type="text" name= "taskName" placeholder ="{{taskName}}"/>
-        <input type="text" name= "taskPriority" value="{{taskPriority}}"/>
-        <input type="date" name= "date" value="{{completedDate}}"/>
-        <input type="hidden" name="taskId" value="{{_id}}">
-        <button name="add">add</button>
-</form>
+    <h1>Update {{username}}'s Account</h1> 
+    <form method="POST" action="/updateUserEditor">
+        <div>Username:</div><input type="text" name= "username" value ="{{username}}"><br>
+        <div>E-mail:</div><input type="text" name= "email" value ="{{email}}"><br>
+        <div>Phone numbuh:</div><input type="text" name= "phone" value ="{{phone}}"><br>
+        <div>First Name:</div><input type="text" name= "firstName" value ="{{firstName}}"><br>
+        <div>Last Name:</div><input type="text" name= "lastName" value ="{{lastName}}"><br>
+        <div>Admin:</div>
+        <select name="admin" id="admin">
+            <option value="true" {{#isAdmin}}selected{{/isAdmin}}>True</option>
+            <option value="false" {{^isAdmin}}selected{{/isAdmin}}>False</option>
+        </select>
+        <br>
+        <input type="hidden" name="userId" value={{_id}}>
+        <button name="submit">submit</button>
+    </form>
 </body>
 </html>

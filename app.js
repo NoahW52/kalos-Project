@@ -147,22 +147,24 @@ app.get('/lands', async (req, res) => {
 app.post('/updateUser', async (req, res) => {
     const userId = req.body.userId
     const item = await User.findById(userId)
-    res.render('update', item)
+    res.render('update-user', item)
 })
 
-app.post('/updateEditor', async(req, res) => {
-    const userId = req.body.taskId
+app.post('/updateUserEditor', async(req, res) => {
+    const userId = req.body.userId
     const userToUpdate = {
         username: req.body.username,
-        password: hashedPassword,
         email: req.body.email,
         phone: req.body.phone,
         firstName: req.body.firstName,
         lastName: req.body.lastName,
+        isAdmin: req.body.admin,
     }
     await User.findByIdAndUpdate(userId, userToUpdate)
     res.redirect('/users')
 })
+
+
 
 app.get('/polls', async (req, res) => {
     const poll = await Poll.find({})
