@@ -195,6 +195,7 @@
 
 .hyHelp{
   margin-left: 20%;
+  padding-right: 50px;
 }
 
 .helpUl {
@@ -357,4 +358,16 @@ body{
 }
 .action .menu ul li:hover a{
   color:#ff00ff;
+}
+
+.footerContainer {
+  background-color: #55555500;
+  height: 10rem;
+  display: flex;
+  align-items: center;
+}
+
+.footerText {
+  padding-left: 20%;
+  color: #555;
 }
