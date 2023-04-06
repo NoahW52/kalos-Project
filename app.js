@@ -5,15 +5,14 @@ const bcrypt = require('bcryptjs')
 const mongoose = require('mongoose')
 const User = require('./schemas/user')
 const Land = require('./schemas/land')
-const Poll = require('./schemas/poll')
 const Farm = require('./schemas/farmer')
 require('dotenv').config()
 const session = require('express-session')
 const path = require('path')
 const VIEWS_PATH = path.join(__dirname, "/views")
 const PARTIALS_PATH = path.join(VIEWS_PATH, "/partials")
-
-app.use('/css/version-1', express.static('css'))
+const userRouter = require("./routes/user")
+const adminRouter = require("./routes/admin")
 
 mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8cz7y6f.mongodb.net/?retryWrites=true&w=majority`,
 {
@@ -25,16 +24,33 @@ mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8
     console.log(error)
 })
 
+const userChecker = (req, res, next) => {
+    if (req.session.user != null && req.session.userId != null) {
+        console.log("sessioncheckpasse")
+        next()
+    }  else {
+        // res.redirect('/login')
+        console.log('failed') 
+        next()
+    }
+}
+
+app.engine('mustache', mustacheExpress(PARTIALS_PATH, ".mustache"))
+app.set('views', VIEWS_PATH)
+app.set('view engine', 'mustache')
+
+app.use(express.urlencoded())
+app.use('/css/version-1', express.static('css'))
+
 app.use(session({
     secret: process.env.SESSION_SECRET_KEY,
     resave: false,
     saveUninitialized: true
 }))
 
-app.engine('mustache', mustacheExpress(PARTIALS_PATH, ".mustache"))
-app.set('views', VIEWS_PATH)
-app.set('view engine', 'mustache')
-app.use(express.urlencoded())
+app.use(userRouter)
+
+app.use(adminRouter)
 
 app.get('/', (req, res) => {
     res.redirect('/home')
@@ -47,6 +63,9 @@ app.get('/home', (req, res) => {
 app.get('/register', async(req, res) => {
     res.render('register', {user: req.session.user})
 })
+
+
+
 app.post('/register', async(req, res) => {
     const password = req.body.password
     let salt = await bcrypt.genSalt(10)
@@ -65,12 +84,16 @@ app.post('/register', async(req, res) => {
     await user.save()
     res.redirect('/user-home')
 })
+
+
 app.get('/user-home', (req,res) => {
     res.render('user-home', {user: req.session.user})
 })
+
 app.get('/farmerInfo', (req,res) => {
     res.render('farmerInfo', {user: req.session.user})
 })
+
 app.post('/farmerInfo', async (req,res) => {
     
     const newFarmer = new Farm({
@@ -94,20 +117,6 @@ app.post('/deletePoll', async (req,res) => {
     res.redirect('polls')
 })
 
-app.get('/poll', (req, res) => {
-    res.render('poll')
-})
-app.post('/poll', async(req, res) => {
-
-    const pollInfo = new Poll({
-    findOut: req.body.responseFO,
-    activityInterest: req.body.responseAI,
-    kalosInterest: req.body.responseKI,
-    users: req.session.user
-})
-    await pollInfo.save()
-    res.redirect('/user-home')
-})
 
 app.get('/login', async(req, res) => {
     res.render('login')
@@ -121,8 +130,9 @@ app.post('/login', async(req, res) => {
     const username = req.body.username
     const password = req.body.password
     const user = await User.findOne({username: username})
-    const hashedPassword = user.password
+    console.log(user)
     if(user) {
+        const hashedPassword = user.password
         // compare passwords 
         const result = await bcrypt.compare(password, hashedPassword)
         if(result) {
@@ -155,49 +165,10 @@ app.post('/findLand', async (req,res) => {
     res.render('findLand')
 })
 
-app.get('/users', async (req, res) => {
-    const user = await User.find({})
-    res.render('users', {userTable: user})
-})
-
-app.get('/farmers', async (req, res) => {
-    const farmer = await Farm.find({})
-    res.render('farmers', {farmerTable: farmer})
-})
-
-app.get('/lands', async (req, res) => {
-    const land = await Land.find({})
-    res.render('lands', {landTable: land})
-})
-
-app.post('/updateUser', async (req, res) => {
-    const userId = req.body.userId
-    const item = await User.findById(userId)
-    res.render('update', item)
-})
-
-app.post('/updateEditor', async(req, res) => {
-    const userId = req.body.taskId
-    const userToUpdate = {
-        username: req.body.username,
-        password: hashedPassword,
-        email: req.body.email,
-        phone: req.body.phone,
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-    }
-    await User.findByIdAndUpdate(userId, userToUpdate)
-    res.redirect('/users')
-})
-
-app.get('/polls', async (req, res) => {
-    const poll = await Poll.find({})
-    res.render('polls', {pollTable: poll})
-})
-
 app.get('/findLand', (req,res) => {
     res.render('findLand')
 })
+
 
 app.listen(process.env.PORT, () => {
     console.log(`server is running on http://localhost:${process.env.PORT}`)
