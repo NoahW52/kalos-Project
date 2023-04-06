@@ -3,6 +3,7 @@ const farmerSchema = new mongoose.Schema({
     Address: String,
     SellerName: String,
     SellerContact: Number,
+    emailContact: String,
     Description: String
 })
 

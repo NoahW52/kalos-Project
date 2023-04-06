@@ -9,23 +9,27 @@
 <body>
 <table>
     <tr>
-    <th>How did you find out about the Kalos project?</th>
-    <th>What activities that we offer are you most interest in?</th>
-    <th>What part of the Kalos Project are you most interested in?</th>
-    <th>Users</th>
+        <th>Address:</th>
+        <th>Seller:</th>
+        <th>Seller Phone Number:</th>
+        <th>Description:</th>
+        <th>Action:</th>
     </tr>
-    {{#pollTable}}
-        <form action="/deleteLand" method="POST">
-            <tr>
-                <td>{{findOut}}</td>
-                <td>{{activityInterest}}</td>
-                <td>{{kalosInterest}}</td>
-                <td>{{users}}</td>
-            </tr>
-            <input type="hidden" value={{_id}} name="id">
-            <button>delete</button>
-        </form>
-    {{/Table}}
+    {{#landTable}}
+        <tr>
+            <td>{{Address}}</td>
+            <td>{{SellerName}}</td>
+            <td>{{SellerContact}}</td>
+            <td>{{emailContact}}</td>
+            <td>{{Description}}</td>
+            <td>
+                <form action="/deleteLand" method="POST">
+                    <input type="hidden" value={{_id}} name="id">
+                    <button>delete</button>
+                </form>
+            </td>
+        </tr>
+    {{/landTable}}
 </table>
 </body>
 </html>
