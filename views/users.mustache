@@ -26,6 +26,12 @@
     <td>{{firstName}}</td>
     <td>{{lastName}}</td>
     <td>{{isAdmin}}</td>
+    <td>
+        <form action="/updateUser" method="post">
+            <input type="hidden" name="userId" value="{{_id}}">
+            <button name="update">update</button>
+        </form>
+    </td>
     </tr>
     {{/userTable}}
 </table>

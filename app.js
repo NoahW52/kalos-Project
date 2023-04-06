@@ -135,18 +135,38 @@ app.get('/users', async (req, res) => {
 })
 
 app.get('/farmers', async (req, res) => {
-    const farmer = await Farmer.find({})
-    res.render('index', {farmerTable: farmer})
+    const farmer = await Farm.find({})
+    res.render('farmers', {farmerTable: farmer})
 })
 
 app.get('/lands', async (req, res) => {
     const land = await Land.find({})
-    res.render('index', {landTable: land})
+    res.render('lands', {landTable: land})
+})
+
+app.post('/updateUser', async (req, res) => {
+    const userId = req.body.userId
+    const item = await User.findById(userId)
+    res.render('update', item)
+})
+
+app.post('/updateEditor', async(req, res) => {
+    const userId = req.body.taskId
+    const userToUpdate = {
+        username: req.body.username,
+        password: hashedPassword,
+        email: req.body.email,
+        phone: req.body.phone,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
+    }
+    await User.findByIdAndUpdate(userId, userToUpdate)
+    res.redirect('/users')
 })
 
 app.get('/polls', async (req, res) => {
     const poll = await Poll.find({})
-    res.render('index', {pollTable: poll})
+    res.render('polls', {pollTable: poll})
 })
 
 app.get('/findLand', (req,res) => {
