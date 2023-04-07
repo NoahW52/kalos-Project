@@ -1,5 +1,4 @@
 # Welcome to the Kalos Project
-Backend project 
 
 ## Empowering people to transform communities that change the world.
 
