@@ -3,9 +3,10 @@ const router = express.Router()
 const mongoose = require('mongoose')
 const Poll = require('../schemas/poll')
 const Land = require('../schemas/land')
+const User = require('../schemas/user')
 const Farm = require('../schemas/farmer')
 require('dotenv').config()
-
+const userChecker = require('../app.js');
 
 mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8cz7y6f.mongodb.net/?retryWrites=true&w=majority`,
 {
@@ -17,9 +18,23 @@ mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8
     console.log(error)
 })
 
-router.get('/user-home', (req,res) => {
-    res.render('user-home', {user: req.session.user})
-})
+const userChecker = (req, res, next) => {
+    if (req.session && req.session.userId) {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  };
+  
+  router.get('/', userChecker, async (req, res) => {
+    try {
+      const user = await User.findById(req.session.userId);
+      res.render('user-home', { user });
+    } catch (err) {
+      console.log(err);
+      res.redirect('/login');
+    }
+  });
 
 router.get('/farmerInfo', (req,res) => {
     res.render('farmerInfo', {user: req.session.user})
@@ -70,4 +85,4 @@ router.post('/poll', async(req, res) => {
 })
 
 
-module.exports = router
+module.exports = { router, userChecker };

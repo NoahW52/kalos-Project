@@ -6,6 +6,7 @@ const Poll = require('../schemas/poll')
 const Land = require('../schemas/land')
 const Farm = require('../schemas/farmer')
 require('dotenv').config()
+const adminChecker = require('../app.js');
 
 mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8cz7y6f.mongodb.net/?retryWrites=true&w=majority`,
 {
@@ -17,10 +18,28 @@ mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8
     console.log(error)
 })
 
+const adminChecker = (req, res, next) => {
+    if (req.session && req.session.userId) {
+      next();
+    } else {
+      res.redirect('/login');
+    }
+  };
+  
+  router.get('/', adminChecker, async (req, res) => {
+    try {
+      const admin = await User.findById(req.session.userId);
+      res.render('user-home', { admin });
+    } catch (err) {
+      console.log(err);
+      res.redirect('/login');
+    }
+  });
 
-router.get('/adminHome', async(req, res) => {
-    res.render('adminHome')
-})
+
+router.get('/adminHome', adminChecker(), (req, res) => {
+    res.render('adminHome');
+  });
 
 router.get('/users', async (req, res) => {
     const user = await User.find({})
@@ -64,4 +83,4 @@ router.post('/updateUserEditor', async(req, res) => {
 
 
 
-module.exports = router
+module.exports = { router, adminChecker };

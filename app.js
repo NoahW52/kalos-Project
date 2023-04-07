@@ -11,8 +11,8 @@ const session = require('express-session')
 const path = require('path')
 const VIEWS_PATH = path.join(__dirname, "/views")
 const PARTIALS_PATH = path.join(VIEWS_PATH, "/partials")
-const userRouter = require("./routes/user")
-const adminRouter = require("./routes/admin")
+
+
 
 mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8cz7y6f.mongodb.net/?retryWrites=true&w=majority`,
 {
@@ -23,17 +23,6 @@ mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8
 }).catch((error) => {
     console.log(error)
 })
-
-const userChecker = (req, res, next) => {
-    if (req.session.user != null && req.session.userId != null) {
-        console.log("sessioncheckpasse")
-        next()
-    }  else {
-        // res.redirect('/login')
-        console.log('failed') 
-        next()
-    }
-}
 
 app.engine('mustache', mustacheExpress(PARTIALS_PATH, ".mustache"))
 app.set('views', VIEWS_PATH)
@@ -47,10 +36,6 @@ app.use(session({
     resave: false,
     saveUninitialized: true
 }))
-
-app.use(userRouter)
-
-app.use(adminRouter)
 
 app.get('/', (req, res) => {
     res.redirect('/home')

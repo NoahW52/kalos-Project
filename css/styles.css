@@ -434,8 +434,13 @@ body{
     font-size: 18px;
     margin-right: 10px;
   }
-  body .partners {
-    display: flex;
-    flex-wrap: wrap;
+  .farm, .regenImg {
+    width: 100%;
+    margin-right: 0;
+  }
+  .partners {
+    position: relative;
+  }
+  .regenT {
   }
 }
