@@ -213,11 +213,10 @@
   transform: scale(1.05);
 }
 
-.regenT {
-  padding-right: 18%;
-  padding-left: 25%;
-  transition: transform 0.2s ease-in-out;
+.partnersDiv {
+  justify-content: center;
 }
+
 .regenT:hover {
   transform: scale(1.05);
 }
@@ -441,6 +440,9 @@ body{
   .partners {
     position: relative;
   }
-  .regenT {
+  .dach {
+    padding-right: 10%;
   }
+  .regenT {}
+
 }
