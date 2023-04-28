@@ -7,7 +7,7 @@ const Land = require('../schemas/land')
 const Farm = require('../schemas/farmer')
 require('dotenv').config()
 const adminChecker = require('../app.js');
-
+ 
 mongoose.connect(`mongodb+srv://curranod840:${process.env.DB_PASSWORD}@cluster.8cz7y6f.mongodb.net/?retryWrites=true&w=majority`,
 {
     useNewUrlParser: true,
