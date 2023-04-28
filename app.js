@@ -90,7 +90,7 @@ app.post('/farmerInfo', async (req,res) => {
     await newFarmer.save()
     res.render('farmerInfo')
 })
-
+ 
 app.post('/deleteLand', async (req, res) => {
     const id = req.body.id
     await Land.findByIdAndDelete(id)
